@@ -52,13 +52,14 @@ func LogLevelHandler(log *logrus.Logger) func(w http.ResponseWriter, req *http.R
 				return
 			}
 
-			err = SetLogLevel(log, string(body))
+			newLevel := string(body)
+			err = SetLogLevel(log, newLevel)
 
 			if err != nil {
 				http.Error(w, fmt.Sprintf("Got an error parsing body, %v\n", err), http.StatusBadRequest)
 				return
 			}
-			http.Error(w, fmt.Sprintf("New log level %s set\n", err), http.StatusOK)
+			http.Error(w, fmt.Sprintf("New log level %s set\n", newLevel), http.StatusOK)
 			return
 		} else {
 			http.Error(w, fmt.Sprintf("Ignoring request. Required method is \"GET\" or \"PUT\", but got \"%s\".\n", req.Method), http.StatusMethodNotAllowed)
