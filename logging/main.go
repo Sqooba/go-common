@@ -30,6 +30,13 @@ func NewLogger() *logrus.Logger {
 	return logrus.StandardLogger()
 }
 
+// NewJSONLogger returns a standard logrus logger with a JSONFormatter.
+func NewJSONLogger() *logrus.Logger {
+	logger := NewLogger()
+	logger.SetFormatter(&logrus.JSONFormatter{})
+	return logger
+}
+
 // LogLevelHandler allow to change the log level at runtime using http PUT request:
 // curl -X GET http://... returns the current log level
 // curl -X PUT -d debug http://... set logging level to debug.
